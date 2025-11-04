@@ -4,7 +4,7 @@ const presensiRecords = require("../data/presensiData");
 
 exports.getDailyReport = async (req, res) => {
   try {
-    const { nama } = req.query;
+    const { nama, tanggalMulai, tanggalSelesai } = req.query;
     let options = { where: {} };
 
     if (nama) {
