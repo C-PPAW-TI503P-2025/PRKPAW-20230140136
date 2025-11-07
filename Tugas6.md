@@ -2,7 +2,8 @@ Request POST /register (untuk membuat user "mahasiswa")
 <img width="1280" height="766" alt="Postman_fuhxxP57cA" src="https://github.com/user-attachments/assets/195c7395-e957-47dc-9960-3a3b6499a2a0" />
 
 Request POST /register (untuk membuat user "admin").
-<img width="1280" height="766" alt="Postman_i1RmEVgyFX" src="https://github.com/user-attachments/assets/084a14ae-43f5-435c-9e4d-0a5b0913862d" />
+<img width="1280" height="766" alt="Postman_i1RmEVgyFX" src="https://github.com/user-attachments/assets/d7159809-3ba6-4f5a-b522-a6be95a5da6d" />
+
 
 Request POST /login (login sebagai "mahasiswa" dan mendapatkan token).
 <img width="1280" height="766" alt="Postman_FxMBII0dxt" src="https://github.com/user-attachments/assets/bcb8ad33-cd1c-48cd-ba64-c5adbe69b865" />
