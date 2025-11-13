@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import DashboardPage from './components/DashboardPage';
+
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('http://localhost:5001')
-      .then(res => res.json())
-      .then(data => setMessage(data.message))
-      .catch(err => console.error('Error fetching data:', err));
-  }, []);
-
-  const name = "Muhammad Irfan Fauzi"; 
-
   return (
-    <div>
-      <h1>Integrasi React dan Node.js</h1>
-      <p>Pesan dari server: {message || 'Loading...'}</p>
-      <h2>Hello, {name}!</h2>
-    </div>
+    <Router>
+      <div>
+        {/* Navigasi ini bisa dihapus jika tidak diperlukan */}
+        <nav className="p-4 bg-gray-100">
+          <Link to="/login" className="mr-4">Login</Link>
+          <Link to="/register">Register</Link>
+        </nav>
+        
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/" element={<LoginPage />} /> 
+        </Routes>
+      </div>
+    </Router>
   );
 }
-
 export default App;
