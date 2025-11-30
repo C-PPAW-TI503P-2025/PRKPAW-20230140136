@@ -1,21 +1,28 @@
-const { Presensi } = require("../models");
+const { Presensi, User } = require("../models");
 const { Op } = require("sequelize");
-const presensiRecords = require("../data/presensiData");
+
+const { format } = require("date-fns-tz");
 
 exports.getDailyReport = async (req, res) => {
   try {
-    const { nama, tanggalMulai, tanggalSelesai } = req.query;
-    let options = { where: {} };
+    const { nama } = req.query;
+
+    let options = {
+      include: [
+        {
+          model: User,
+          as: "user", 
+          attributes: ["id", "nama", "email"]
+        },
+      ],
+    };
 
     if (nama) {
-      options.where.nama = {
-        [Op.like]: `%${nama}%`,
-      };
-    }
-
-    if (tanggalMulai && tanggalSelesai) {
-      options.where.tanggalPresensi = {
-        [Op.between]: [new Date(tanggalMulai), new Date(tanggalSelesai)],
+      // Baris ini akan error jika 'Op' tidak diimpor
+      options.include[0].where = {
+        nama: {
+          [Op.like]: `%${nama}%`,
+        },
       };
     }
 
@@ -26,10 +33,8 @@ exports.getDailyReport = async (req, res) => {
       data: records,
     });
   } catch (error) {
-    res
-      .status(500)
+    console.log("ERROR GET DAILY REPORT:", error);
+    res.status(500)
       .json({ message: "Gagal mengambil laporan", error: error.message });
   }
 };
-
-

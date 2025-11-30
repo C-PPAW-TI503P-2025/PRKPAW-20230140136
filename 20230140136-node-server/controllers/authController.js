@@ -1,7 +1,9 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');	
-const JWT_SECRET = 'INI_ADALAH_KUNCI_RAHASIA_ANDA_YANG_SANGAT_AMAN';
+const jwt = require('jsonwebtoken');
+
+// SECRET HARUS SAMA DENGAN middleware/permissionMiddleware.js
+const JWT_SECRET = "jwt_secret_12345";
 
 exports.register = async (req, res) => {
   try {
@@ -15,12 +17,13 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: "Role tidak valid. Harus 'mahasiswa' atau 'admin'." });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10); 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       nama,
       email,
       password: hashedPassword,
-      role: role || 'mahasiswa' 
+      role: role || 'mahasiswa'
     });
 
     res.status(201).json({
@@ -35,7 +38,6 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: "Terjadi kesalahan pada server", error: error.message });
   }
 };
-
 
 exports.login = async (req, res) => {
   try {
@@ -54,16 +56,14 @@ exports.login = async (req, res) => {
     const payload = {
       id: user.id,
       nama: user.nama,
-      role: user.role 
+      role: user.role
     };
 
-    const token = jwt.sign(payload, JWT_SECRET, {
-      expiresIn: '1h' 
-    });
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
 
     res.json({
       message: "Login berhasil",
-      token: token 
+      token: token
     });
 
   } catch (error) {
