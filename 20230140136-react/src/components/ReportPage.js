@@ -7,6 +7,7 @@ function ReportPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null); // State untuk modal foto
 
   const fetchReports = async (query = "") => {
     const token = localStorage.getItem("token");
@@ -89,6 +90,7 @@ function ReportPage() {
                 <th className="px-4 py-3 text-left text-xs font-semibold">Check-Out</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold">Latitude</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold">Longitude</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold">Bukti Foto</th>
               </tr>
             </thead>
 
@@ -111,8 +113,8 @@ function ReportPage() {
                     <td className="px-4 py-2">
                       {presensi.checkOut
                         ? new Date(presensi.checkOut).toLocaleString("id-ID", {
-                            timeZone: "Asia/Jakarta",
-                          })
+                          timeZone: "Asia/Jakarta",
+                        })
                         : "Belum Check-Out"}
                     </td>
 
@@ -123,17 +125,49 @@ function ReportPage() {
                     <td className="px-4 py-2">
                       {presensi.longitude ?? "-"}
                     </td>
+
+                    <td className="px-4 py-2">
+                      {presensi.buktiFoto ? (
+                        <img
+                          src={`http://localhost:3001/${presensi.buktiFoto}`}
+                          alt="Bukti"
+                          className="w-16 h-16 object-cover rounded cursor-pointer hover:opacity-75"
+                          onClick={() => setSelectedImage(`http://localhost:3001/${presensi.buktiFoto}`)}
+                        />
+                      ) : (
+                        <span className="text-gray-400 italic">Tidak ada</span>
+                      )}
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="text-center py-4 text-gray-500">
+                  <td colSpan="7" className="text-center py-4 text-gray-500">
                     Tidak ada data yang ditemukan.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* MODAL UNTUK MENAMPILKAN FOTO FULL SIZE */}
+      {selectedImage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" onClick={() => setSelectedImage(null)}>
+          <div className="relative p-4">
+            <button
+              className="absolute top-2 right-2 text-white text-2xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-700"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times;
+            </button>
+            <img
+              src={selectedImage}
+              alt="Bukti Full"
+              className="max-w-full max-h-screen rounded shadow-lg"
+            />
+          </div>
         </div>
       )}
     </div>

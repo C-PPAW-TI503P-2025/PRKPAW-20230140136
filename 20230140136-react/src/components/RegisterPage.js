@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
-  const [nama, setNama] = useState(''); 
+  const [nama, setNama] = useState('');
   const [role, setRole] = useState('mahasiswa'); // default
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +16,7 @@ function RegisterPage() {
     setError(null);
 
     try {
-      
+
       await axios.post('http://localhost:3001/api/auth/register', {
         nama,
         role,
@@ -24,10 +24,10 @@ function RegisterPage() {
         password
       });
 
-      
+
       navigate('/login');
     } catch (err) {
-      
+
       setError(err.response ? err.response.data.message : 'Gagal melakukan register');
     }
   };
@@ -43,7 +43,7 @@ function RegisterPage() {
             <input
               type="text"
               value={nama}
-              onChange={e => setNama(e.target.value)} 
+              onChange={e => setNama(e.target.value)}
               required
               className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />

@@ -11,10 +11,11 @@ exports.getDailyReport = async (req, res) => {
       include: [
         {
           model: User,
-          as: "user", 
+          as: "user",
           attributes: ["id", "nama", "email"]
         },
       ],
+      order: [['checkIn', 'DESC']]
     };
 
     if (nama) {
