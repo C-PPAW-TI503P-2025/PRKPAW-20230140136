@@ -6,6 +6,10 @@ const iotController = require('../controllers/iotController');
 // URL: http://localhost:3001/api/iot/data
 router.post('/data', iotController.receiveSensorData);
 
+// Endpoint untuk mengambil riwayat data sensor
+// URL: http://localhost:3001/api/iot/history
+router.get('/history', iotController.getSensorHistory);
+
 // Endpoint untuk testing koneksi
 router.post('/ping', iotController.testConnection);
 

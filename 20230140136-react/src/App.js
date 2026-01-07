@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import AttendancePage from "./components/AttendancePage";
 import ReportPage from "./components/ReportPage";
+import SensorPage from "./components/SensorPage";
 
 import { jwtDecode } from "jwt-decode";
 
@@ -51,6 +52,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AttendancePage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Halaman Monitoring IoT - Bisa diakses semua user yang login */}
+            <Route
+              path="/monitoring"
+              element={
+                <ProtectedRoute>
+                  <SensorPage />
                 </ProtectedRoute>
               }
             />

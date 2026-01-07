@@ -33,6 +33,16 @@ const Navbar = () => {
             </button>
           )}
 
+          {/* Tombol Monitoring IoT - untuk semua user yang login */}
+          {user && (
+            <button
+              onClick={() => navigate("/monitoring")}
+              className="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600"
+            >
+              Monitoring IoT
+            </button>
+          )}
+
           {/* Tombol Admin */}
           {user && user.role === "admin" && (
             <button
